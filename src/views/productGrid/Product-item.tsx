@@ -1,29 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { ProductGridItem } from './product-grid.interface';
-import { Grid, Typography, GridListTile } from '@material-ui/core';
-
+import { Grid, Typography } from '@material-ui/core';
+import { ManagerBasketValueType } from '../../managerBasketType';
 
 interface ProductItemProps {
   productItem: ProductGridItem,
+  ManagerBasket: (ProductGridItemId: string, basketAction: ManagerBasketValueType) => void;
+
 }
 
-
-
 const ProductItem: React.FC<ProductItemProps> = ( ProductItemProps) =>   {
-
-  const addToCart = (o) => {
-
-    // if(cart.findIndex( item => item.id === o.id) >= 0) {
-    //   IncrementDecrementQuantity(o,true);
-    // } else {
-    //   setCart([...cart, {
-    //     id: o.id,
-    //     name: o.name,
-    //     price: o.price,
-    //     quantity: 1
-    //   }]);
-    // }
-  }
 
  
     return (
@@ -42,10 +28,10 @@ const ProductItem: React.FC<ProductItemProps> = ( ProductItemProps) =>   {
             Price:  {ProductItemProps.productItem.price.toLocaleString('en-GB', { style: 'currency', currency: 'GBP' })} 
           </Grid>
           <Grid item xs={12}  >
-                <button style={{ backgroundColor: 'rgb(151, 215, 0)',  }} onClick={() => addToCart(ProductItemProps.productItem.id)}>
+                <button style={{ backgroundColor: 'rgb(151, 215, 0)',  }} onClick={() => ProductItemProps.ManagerBasket(ProductItemProps.productItem.id, ManagerBasketValueType.ADD)}>
                   Add to cart
                 </button>
-                  <button style={{ backgroundColor: 'rgb(151, 215, 0)',  }} onClick={() => addToCart(ProductItemProps.productItem.id)}>
+                  <button style={{ backgroundColor: 'rgb(151, 215, 0)',  }} onClick={() => ProductItemProps.ManagerBasket(ProductItemProps.productItem.id, ManagerBasketValueType.DELETE)}>
                     Remove from cart
                   </button>
           </Grid>

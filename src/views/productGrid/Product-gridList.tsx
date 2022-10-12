@@ -1,49 +1,28 @@
-import React, { Component, useEffect, useState } from 'react';
-import MaterialTable from "material-table";
-import Paper from '@material-ui/core/Paper';
+import React from 'react';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import ReactLoading from 'react-loading';
-import { Grid, ImageList, ImageListItem } from '@material-ui/core';
+import {  ImageList, ImageListItem } from '@material-ui/core';
 
 import { ProductGridItem } from './product-grid.interface';
 import ProductItem from './Product-item';
+import { ManagerBasketValueType } from '../../managerBasketType';
 
 interface ProductsListGridState {
-productsList: ProductGridItem[],
-loading: Boolean
+  productsList: ProductGridItem[],
+  loading: Boolean | undefined,
+   ManagerBasket: (ProductGridItemId: string, basketAction: ManagerBasketValueType) => void
 }
 
 
-const getDataFromServer = async () => {
-  const url = await fetch('https://us-central1-techtaskapi.cloudfunctions.net/offers');
-  const data = await url.json();
-  return data;
-}
-
-
-const ProductsListGrid: React.FC<ProductsListGridState> = () =>  {
-
-  const [productsList, setProductsList]  = useState([]);
-  const [loading, setLoading]  = useState(true);
-
-useEffect(() => {
-  getDataFromServer().then(data => {
-    setTimeout(() => {
-      setProductsList(data.items as ProductGridItem[]);
-      setLoading(false);
-    }, 3000);
-    
-
-  }).catch(error => { throw Error(' error in getDataFromServer...') })
-}, []);
+const ProductsListGrid: React.FC<ProductsListGridState> = (ProductItemProps) =>  {
 
 const getContent = () =>  {
   let content: any[] = [];
-  if(!loading) {
-    for (const productItem of productsList) {
-      content.push(<ImageListItem key={productItem.id} className="product-item" cols={1}><ProductItem productItem={productItem} /></ImageListItem>);
+  if(!ProductItemProps.loading) {
+    for (const productItem of ProductItemProps.productsList) {
+      content.push(<ImageListItem key={productItem.id} className="product-item" cols={1}><ProductItem productItem={productItem} ManagerBasket={ProductItemProps.ManagerBasket} /></ImageListItem>);
     }
     return content;
   } else {

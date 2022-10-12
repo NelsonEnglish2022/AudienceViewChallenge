@@ -1,13 +1,6 @@
-import React, { Component, useEffect, useState } from 'react';
-import MaterialTable from "material-table";
-import Paper from '@material-ui/core/Paper';
-import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import ReactLoading from 'react-loading';
+import React, {  useEffect, useState } from 'react';
 
 import { ProductGridItem } from '../productGrid/product-grid.interface';
-
 
 interface ProductItemProps {
     productItemBasket: ProductGridItem[],
@@ -73,6 +66,7 @@ const ProductBasket: React.FC<ProductItemProps> = (ProductItemProps) =>  {
   
   return (
     <div className="movies__cart">
+
          <ul>
           {ProductItemProps.productItemBasket.map(x => (
             <li className="movies__cart-card">

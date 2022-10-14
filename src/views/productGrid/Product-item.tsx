@@ -5,7 +5,7 @@ import { ManagerBasketValueType } from '../../managerBasketType';
 
 interface ProductItemProps {
   productItem: ProductGridItem,
-  ManagerBasket: (ProductGridItemId: string, basketAction: ManagerBasketValueType) => void;
+  ManagerBasket: (ProductGridItem: ProductGridItem, basketAction: ManagerBasketValueType) => void;
 
 }
 
@@ -28,16 +28,15 @@ const ProductItem: React.FC<ProductItemProps> = ( ProductItemProps) =>   {
             Price:  {ProductItemProps.productItem.price.toLocaleString('en-GB', { style: 'currency', currency: 'GBP' })} 
           </Grid>
           <Grid item xs={12}  >
-                <button style={{ backgroundColor: 'rgb(151, 215, 0)',  }} onClick={() => ProductItemProps.ManagerBasket(ProductItemProps.productItem.id, ManagerBasketValueType.ADD)}>
+                <button style={{ backgroundColor: 'rgb(151, 215, 0)',  }} onClick={() => ProductItemProps.ManagerBasket(ProductItemProps.productItem, ManagerBasketValueType.ADD)}>
                   Add to cart
                 </button>
-                  <button style={{ backgroundColor: 'rgb(151, 215, 0)',  }} onClick={() => ProductItemProps.ManagerBasket(ProductItemProps.productItem.id, ManagerBasketValueType.DELETE)}>
+                  <button style={{ backgroundColor: 'rgb(151, 215, 0)',  }} onClick={() => ProductItemProps.ManagerBasket(ProductItemProps.productItem, ManagerBasketValueType.DELETE)}>
                     Remove from cart
                   </button>
           </Grid>
         </Grid>
     );
 }
-
 
 export default ProductItem;

@@ -1,0 +1,11 @@
+.movies__cart {
+  background-color: whitesmoke;
+  padding: 1rem;
+}
+
+.movies__cart-card {
+  background-color: rgb(151, 215, 0);
+  margin-bottom: 1rem;
+  padding: .75em;
+  border-radius: .2em;
+}

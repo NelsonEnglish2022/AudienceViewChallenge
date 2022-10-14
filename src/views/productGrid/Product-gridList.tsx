@@ -8,15 +8,21 @@ import {  ImageList, ImageListItem } from '@material-ui/core';
 import { ProductGridItem } from './product-grid.interface';
 import ProductItem from './Product-item';
 import { ManagerBasketValueType } from '../../managerBasketType';
+import { ProductBasketInterface } from '../productBasket/product-basket.interface';
 
 interface ProductsListGridState {
   productsList: ProductGridItem[],
+  productBasket: ProductBasketInterface[],
   loading: Boolean | undefined,
-   ManagerBasket: (ProductGridItemId: string, basketAction: ManagerBasketValueType) => void
+   ManagerBasket: (ProductGridItem: ProductGridItem, basketAction: ManagerBasketValueType) => void
 }
 
 
 const ProductsListGrid: React.FC<ProductsListGridState> = (ProductItemProps) =>  {
+
+  const getTotal = () => ProductItemProps.productBasket.reduce((acum, current) => (acum + current.price * current.quantity)  ,0);
+  const getQuantity = () => ProductItemProps.productBasket.reduce((acum, current) => (acum + current.quantity)  ,0);
+
 
 const getContent = () =>  {
   let content: any[] = [];
@@ -57,7 +63,7 @@ return (
         </Box>
         <Box my={12}>
           <Typography variant="h4" component="h1" style={{ paddingTop: '2%', paddingBottom:'5%',}} >
-            Number of items in the Basket :  Total Basket amount:        
+            {`Number of items in the Basket : ${getQuantity()} / Total Basket amount:  ${getTotal().toLocaleString('en-GB', { style: 'currency', currency: 'GBP' })} `}
           </Typography>
         </Box>
       </Container>
